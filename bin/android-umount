@@ -1,0 +1,15 @@
+#!/bin/sh
+#$1 = Label
+
+label=$( echo $1 | tr '[:upper:]' '[:lower:]' )
+dir="/media/$label"
+
+echo "android-umount" >> log
+fusermount -u "$dir"
+rmdir $dir
+
+for u in /home/*; do
+	rm "$u/@$label"
+done
+
+exit 0

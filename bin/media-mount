@@ -1,0 +1,19 @@
+#!/bin/sh
+#$1 = <dev>
+#$2 = Label
+
+# Directory to use for mounting the devices
+dev="/dev/$1"
+label=$( echo $2 | tr '[:upper:]' '[:lower:]' )
+dir="/media/$label"
+
+mkdir -p "$dir"
+mount "$dev" "$dir"
+
+for m in /media/*; do
+	for u in /home/*; do
+		ln -s $m "$u/@$(basename $m)"
+	done
+done
+
+exit 0
