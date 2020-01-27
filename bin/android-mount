@@ -4,7 +4,6 @@
 label=$( echo $1 | tr '[:upper:]' '[:lower:]' )
 dir="/media/$label"
 
-echo "android-mount" >> log
 mkdir -p "$dir"
 jmtpfs "$dir" -o allow_other
 

@@ -1,5 +1,6 @@
 # arch-automount
 Automounting of USB/External drives &amp; Android Devices for Arch Linux
+using `udev`, `systemd` and shell scripts.
 
 ## Installing
 ```shell

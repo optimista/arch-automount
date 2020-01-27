@@ -4,7 +4,6 @@
 label=$( echo $1 | tr '[:upper:]' '[:lower:]' )
 dir="/media/$label"
 
-echo "android-umount" >> log
 fusermount -u "$dir"
 rmdir $dir
 
