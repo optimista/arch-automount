@@ -1,17 +1,17 @@
 #!/bin/sh
-#$1 = <dev>
-#$2 = Label
 
-# Directory to use for umounting the devices
-dev="/dev/$1"
-label=$( echo $2 | tr '[:upper:]' '[:lower:]' )
-dir="/media/$label"
+mtabmounted=$( cat /etc/mtab | cut -d' ' -f1 | grep sd[b-z][0-9] | sed 's/\/dev\///g' | paste -sd " " )
+lsblkmounted=$( lsblk -l -no NAME,MOUNTPOINT | awk '{if ($2) print $1; }' | paste -sd "," )
 
-umount "$dev"
-rmdir "$dir"
-
-for u in /home/*; do
-	rm "$u/@$label"
+for d in $mtabmounted; do
+	if [ ! $(echo $lsblkmounted | grep $d) ]; then
+		dir=$( cat /etc/mtab | grep $d | cut -d" " -f2 )
+		umount $dir
+		rmdir $dir
+		for u in /home/*; do
+			rm "$u/@$(basename $dir)"
+		done
+	fi
 done
 
 exit 0

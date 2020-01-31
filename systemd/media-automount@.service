@@ -1,0 +1,4 @@
+[Service]
+Type=forking
+ExecStart=/usr/bin/media-mount %I
+ExecStop=/usr/bin/media-umount

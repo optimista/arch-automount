@@ -1,3 +1,6 @@
-SUBSYSTEM=="usb", ENV{ID_MTP_DEVICE}=="1", ACTION=="add", RUN+="/usr/bin/systemctl start android-mtp@%E{ID_VENDOR}.service"
-SUBSYSTEM=="usb", ACTION=="remove", RUN+="/usr/bin/systemctl stop android-mtp@%E{ID_VENDOR_FROM_DATABASE}.service"
+# mount the device when added
+SUBSYSTEM=="usb", ENV{ID_MTP_DEVICE}=="1", ACTION=="add", RUN+="/usr/bin/systemctl start android-automount@%E{ID_VENDOR}.service"
+
+# clean up after device removal
+SUBSYSTEM=="usb", ACTION=="remove", RUN+="/usr/bin/systemctl stop android-automount@%E{ID_VENDOR_FROM_DATABASE}.service"
 
