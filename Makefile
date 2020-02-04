@@ -1,7 +1,7 @@
 install:
 	install bin/* /usr/bin
-	install udev/* /usr/lib/udev/rules.d
-	install systemd/* /usr/lib/systemd/system
+	install udev/* /etc/udev/rules.d
+	install systemd/* /etc/systemd/system
 
 # Intended only for development 😅
 update:
@@ -11,9 +11,9 @@ update:
 	cp /usr/bin/media-mount bin/media-mount
 	cp /usr/bin/media-umount bin/media-umount
 	rm udev/*
-	cp /usr/lib/udev/rules.d/99-android-automount.rules udev/99-android-automount.rules
-	cp /usr/lib/udev/rules.d/99-media-automount.rules udev/99-media-automount.rules
+	cp /etc/udev/rules.d/99-android-automount.rules udev/99-android-automount.rules
+	cp /etc/udev/rules.d/99-media-automount.rules udev/99-media-automount.rules
 	rm systemd/*
-	cp /usr/lib/systemd/system/android-automount@.service systemd/android-automount@.service
-	cp /usr/lib/systemd/system/media-automount@.service systemd/media-automount@.service
+	cp /etc/systemd/system/android-automount@.service systemd/android-automount@.service
+	cp /etc/systemd/system/media-automount@.service systemd/media-automount@.service
 
