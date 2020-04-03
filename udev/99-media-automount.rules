@@ -8,7 +8,7 @@
 # mounting has to be done as a separate "service"
 
 # mount the device when added
-KERNEL=="sd[b-z][0-9]", ENV{DEVTYPE}=="partition", ACTION=="add", RUN+="/usr/bin/systemctl start media-automount@%k.service"
+KERNEL=="sd[b-z][0-9]|mmcblk[0-9]p[0-9]", ENV{DEVTYPE}=="partition", ACTION=="add", RUN+="/usr/bin/systemctl start media-automount@%k.service"
 
 # clean up after device removal
-KERNEL=="sd[b-z][0-9]", ENV{DEVTYPE}=="partition", ACTION=="remove", RUN+="/usr/bin/systemctl stop media-automount@%k.service"
+KERNEL=="sd[b-z][0-9]|mmcblk[0-9]p[0-9]", ENV{DEVTYPE}=="partition", ACTION=="remove", RUN+="/usr/bin/systemctl stop media-automount@%k.service"

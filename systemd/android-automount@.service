@@ -1,6 +1,7 @@
 # Android MTP mount service
 
 [Service]
-Type=forking
+Type=oneshot
 ExecStart=/usr/bin/android-mount %I
 ExecStop=/usr/bin/android-umount %I
+RemainAfterExit=yes

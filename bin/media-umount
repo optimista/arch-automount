@@ -1,15 +1,15 @@
 #!/bin/sh
 
 mtabmounted=$( cat /etc/mtab | cut -d' ' -f1 | grep sd[b-z][0-9] | sed 's/\/dev\///g' | paste -sd " " )
-lsblkmounted=$( lsblk -l -no NAME,MOUNTPOINT | awk '{if ($2) print $1; }' | paste -sd "," )
+lsblkmounted=$( lsblk -l -no NAME,MOUNTPOINT | awk '{if ($2) print $1; }' | paste -sd " " )
 
 for d in $mtabmounted; do
 	if [ ! $(echo $lsblkmounted | grep $d) ]; then
 		dir=$( cat /etc/mtab | grep $d | cut -d" " -f2 )
-		umount $dir
-		rmdir $dir
+		umount $dir >> /home/crux/local 2>>/home/crux/localerror
+		rmdir $dir >> /home/crux/local 2>>/home/crux/localerror		
 		for u in /home/*; do
-			rm "$u/@$(basename $dir)"
+			rm "$u/+$(basename $dir)"
 		done
 	fi
 done

@@ -13,7 +13,7 @@ mkdir -p "$dir"
 mount "$dev" "$dir"
 
 for u in /home/*; do
-	ln -s $dir "$u/@$(basename $dir)"
+	ln -s $dir "$u/+$(basename $dir)"
 done
 
 exit 0

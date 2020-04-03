@@ -8,7 +8,7 @@ mkdir -p "$dir"
 jmtpfs "$dir" -o allow_other
 
 for u in /home/*; do
-	ln -s $dir "$u/@$label"
+	ln -s $dir "$u/+$label"
 done
 
 exit 0
