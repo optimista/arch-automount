@@ -13,9 +13,6 @@ mkdir -p "$dir"
 mount "$dev" "$dir"
 
 for u in /home/*; do
-	echo $u >> /home/crux/local
-	echo $dir >> /home/crux/local
-	echo $(basename $dir) >> /home/crux/local
 	ln -s $dir "$u/+$(basename $dir)"
 done
 
