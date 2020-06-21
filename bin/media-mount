@@ -1,18 +1,37 @@
 #!/bin/sh
 #$1 = <dev>
 
+function debug()
+{
+	echo $1 >> /tmp/media-mount.log
+}
+
 # Directory to use for mounting the devices
 dev="/dev/$1"
 devlabel=$( lsblk -no label $dev ) 
 devuuid=$( lsblk -no uuid $dev )
 if [ -z $devlabel ]; then label=$devuuid; else label=$devlabel; fi
 label=$( echo $label | tr '[:upper:]' '[:lower:]' )
+
+debug label
+debug $label
+
 dir="/media/$label"
 
+debug dir
+debug "$dir"
+
 mkdir -p "$dir"
+
+debug mount
+debug "$dev $dir"
+
 mount "$dev" "$dir"
 
 for u in /home/*; do
+	debug mounting
+	debug "$dir"
+	debug "$u/+$(basename $dir)"
 	ln -s $dir "$u/+$(basename $dir)"
 done
 
